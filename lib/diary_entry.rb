@@ -15,12 +15,13 @@ class DiaryEntry
   end
 
   def count_words
-    @word_count = @contents.split(" ").length
-    return @word_count
+    return 0 if @contents.empty?
+    return @contents.count(" ") + 1
   end
 
   def reading_time(wpm)
-    return (@word_count / wpm.to_f).ceil
+    fail "Error! Words per minute must be greater than zero!" unless wpm.positive?
+    return (count_words / wpm.to_f).ceil
   end
 
   def reading_chunk(wpm, minutes)

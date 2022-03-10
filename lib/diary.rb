@@ -15,30 +15,24 @@ class Diary
   end
 
   def count_words
-    @entries.select do |entry|
-      @all_contents << entry.contents
-    end
-    @word_count = @all_contents.join(" ").split(" ").length
-    return @word_count
+    return @entries.sum(&:count_words)
   end
 
   def reading_time(wpm)
-    return (@word_count / wpm.to_f).ceil 
+    fail "Error! Words per minute must be greater than zero!" unless wpm.positive?
+    return (count_words / wpm.to_f).ceil
   end
 
   def find_best_entry_for_reading_time(wpm, minutes)
-    # binding.irb
-    @max_words = wpm * minutes
-    @ending_point = @starting_point + @max_words
+    readable_entries(wpm, minutes).max_by(&:count_words)
+  end
 
-    @contents_array = @all_contents.join(" ").split(" ")
-    # binding.irb
-    reading_chunk = @contents_array[@starting_point, @ending_point]
-    # binding.irb
-    @starting_point = @ending_point
+  private 
 
-    return reading_chunk.join(" ")
-
+  def readable_entries(wpm, minutes)
+    return @entries.filter do |entry|
+      entry.reading_time(wpm) <= minutes
+    end
   end
 
 end
