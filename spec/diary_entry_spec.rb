@@ -52,12 +52,12 @@ RSpec.describe DiaryEntry do
 
 
     # WHY DOES THIS ONE BREAK DOWN
-    # it "given a time of 2 wpm and 1 minute to read,it returns the last word" do
-    #   diary = DiaryEntry.new("Wednesday 9th March 2022", "one two three four five")
-    #   diary.count_words
-    #   diary.reading_chunk(2, 1)
-    #   expect(diary.reading_chunk(2, 1)).to eq "three four"
-    # end
+    it "given a time of 2 wpm and 1 minute to read,it returns the last word" do
+      diary = DiaryEntry.new("Wednesday 9th March 2022", "one two three four five")
+      diary.count_words
+      diary.reading_chunk(2, 1)
+      expect(diary.reading_chunk(2, 1)).to eq "three four"
+    end
 
     it "given a time of 2 wpm and 1 minute to read,it returns the last word" do
       diary = DiaryEntry.new("Wednesday 9th March 2022", "one two three four five")

@@ -25,16 +25,19 @@ class DiaryEntry
   end
 
   def reading_chunk(wpm, minutes)
+    p "--------"
+    p "starting point at the beginning: ", @starting_point
     @max_words = wpm * minutes
     @ending_point = @starting_point + @max_words
 
     @contents_array = @contents.split(" ")
-    @starting_point
-    @ending_point
-    reading_chunk = @contents_array[@starting_point, @ending_point]
+    reading_chunk_array = @contents_array[@starting_point, @ending_point]
     @starting_point = @ending_point
 
-    return reading_chunk.join(" ")
+    p "--------"
+    p "starting point at the end: ", @starting_point
+
+    return reading_chunk_array.join(" ")
 
   end
 
