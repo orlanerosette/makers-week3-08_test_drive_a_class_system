@@ -15,9 +15,13 @@ class TodoList
 
   def complete
     # Returns all complete todos
+    return @todo_list.select { |todo| todo.done? }
   end
 
   def give_up!
     # Marks all todos as complete
+    for todo in @todo_list do
+      todo.mark_done!
+    end
   end
 end
